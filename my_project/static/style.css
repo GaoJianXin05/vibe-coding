@@ -1,0 +1,93 @@
+/* --- A面: 学术模式动画 (优雅) --- */
+
+/* 定义从下往上淡入的动画关键帧 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 应用于学术卡片的类 */
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* --- B面: 赛博模式动画 (狂野) --- */
+
+/* 1. CRT 屏幕闪烁效果 */
+@keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.9; }
+    10% { opacity: 0.97; }
+    15% { opacity: 1; }
+    20% { opacity: 0.95; }
+    50% { opacity: 0.99; }
+    55% { opacity: 0.93; }
+    60% { opacity: 0.9; }
+    100% { opacity: 0.98; }
+}
+
+/* 应用于赛博容器的类 */
+.crt-flicker {
+    animation: flicker 0.15s infinite;
+}
+
+/* 2. Glitch 文字故障效果 */
+/* 核心逻辑：利用 attr(data-text) 复制文字，然后用 clip-path 切割并错位 */
+.glitch-text {
+    position: relative;
+    color: #4ade80; /* Tailwind green-400 */
+}
+
+/* 创建两个伪元素，内容与原文字相同 */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000; /* 黑色背景遮挡原文字 */
+}
+
+/* 红色/品红偏移层 */
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+/* 青色/蓝色偏移层 */
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* 故障动画关键帧 1 */
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 16px, 0); }
+    20% { clip: rect(62px, 9999px, 86px, 0); }
+    40% { clip: rect(12px, 9999px, 3px, 0); }
+    60% { clip: rect(58px, 9999px, 78px, 0); }
+    80% { clip: rect(5px, 9999px, 14px, 0); }
+    100% { clip: rect(81px, 9999px, 46px, 0); }
+}
+
+/* 故障动画关键帧 2 */
+@keyframes glitch-anim-2 {
+    0% { clip: rect(15px, 9999px, 60px, 0); }
+    20% { clip: rect(78px, 9999px, 2px, 0); }
+    40% { clip: rect(4px, 9999px, 38px, 0); }
+    60% { clip: rect(62px, 9999px, 9px, 0); }
+    80% { clip: rect(27px, 9999px, 14px, 0); }
+    100% { clip: rect(32px, 9999px, 72px, 0); }
+}

@@ -1,0 +1,57 @@
+<!-- Academic Content Fragment -->
+<!-- 动画类: fade-in-up -->
+<div class="fade-in-up w-full max-w-xl mx-auto bg-white p-10 shadow-xl rounded-sm border border-gray-200 transition-all duration-700 ease-in-out transform translate-y-0 opacity-100">
+    
+    <!-- Header -->
+    <div class="border-b-2 border-gray-800 pb-4 mb-6 flex justify-between items-end">
+        <div>
+            <h1 class="text-4xl font-serif font-bold text-gray-900 tracking-tight">{{ name }}</h1>
+            <p class="text-lg text-gray-500 italic mt-1">{{ title }}</p>
+        </div>
+        <div class="text-right">
+            <span class="block text-xs font-bold uppercase tracking-widest text-gray-400">Education</span>
+            <span class="text-sm font-serif text-gray-800">{{ university }}</span>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="space-y-6 font-serif">
+        <div class="flex items-center justify-between">
+            <span class="text-gray-600">Grade Point Average</span>
+            <span class="font-bold text-xl">{{ gpa }}</span>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-3">Core Competencies</h3>
+            <ul class="grid grid-cols-2 gap-2">
+                {% for skill in skills %}
+                <li class="flex items-center text-gray-700">
+                    <span class="w-2 h-2 bg-gray-300 mr-2 rounded-full"></span>
+                    {{ skill }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Action Area (Step 5 新增) -->
+    <div class="mt-8 flex items-center">
+        <button 
+            hx-post="/action/contact-academic" 
+            hx-target="#academic-contact-slot" 
+            hx-swap="innerHTML"
+            class="bg-gray-900 text-white px-5 py-2 rounded-sm text-sm font-serif hover:bg-gray-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+            Get in Touch
+        </button>
+        <!-- 结果显示槽位 -->
+        <span id="academic-contact-slot"></span>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 pt-4 border-t border-gray-100 text-center">
+        <p class="text-xs text-gray-400">CV Ref: 2023-ACD-001</p>
+    </div>
+</div>
+
+<!-- 【HTMX OOB控制】: 切换背景为浅色 -->
+<div id="global-bg" class="fixed inset-0 -z-10 bg-gray-50 transition-colors duration-700" hx-swap-oob="true"></div>

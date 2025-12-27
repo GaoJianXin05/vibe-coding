@@ -1,0 +1,11 @@
+[build]
+  command = "pip install -r requirements.txt"
+  publish = ""  # 我们没有静态构建文件夹，留空或默认
+
+[functions]
+  directory = "."  # 告诉 Netlify 函数就在根目录
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/main"  # 将所有流量转发给 main.py
+  status = 200

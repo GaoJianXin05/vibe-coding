@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Persona</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!-- 自定义样式 (动画) -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col items-center py-10 relative">
+
+    <!-- 1. 全局背景层 (HTMX OOB 交换的目标) -->
+    <!-- 初始状态：学术白 -->
+    <div id="global-bg" class="fixed inset-0 -z-10 bg-gray-50 transition-colors duration-700"></div>
+
+    <!-- 2. 模式切换器 (Quantum Switch) -->
+    <div class="z-50 mb-8 bg-white/20 backdrop-blur-md p-1 rounded-full shadow-lg border border-white/30 flex">
+        <button 
+            class="px-6 py-2 rounded-full text-sm font-bold text-gray-700 hover:bg-white/50 transition-all focus:outline-none"
+            hx-get="/mode/academic" 
+            hx-target="#profile-container"
+            hx-swap="innerHTML"
+        >
+            Academic
+        </button>
+        <button 
+            class="px-6 py-2 rounded-full text-sm font-bold text-gray-700 hover:bg-black/80 hover:text-green-400 transition-all focus:outline-none"
+            hx-get="/mode/cyberpunk" 
+            hx-target="#profile-container"
+            hx-swap="innerHTML"
+        >
+            Cyberpunk
+        </button>
+    </div>
+
+    <!-- 3. 内容容器 -->
+    <!-- hx-trigger="load" 保证页面加载时自动获取学术模式 -->
+    <div id="profile-container" 
+         class="w-full max-w-2xl px-4 transition-all"
+         hx-get="/mode/academic" 
+         hx-trigger="load" 
+         hx-swap="innerHTML">
+         
+         <!-- Loading 占位符 -->
+         <div class="text-center text-gray-400 animate-pulse mt-20">
+            Loading Quantum State...
+         </div>
+    </div>
+
+</body>
+</html>
