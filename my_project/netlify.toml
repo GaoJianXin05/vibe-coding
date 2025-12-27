@@ -20,12 +20,6 @@
   # 这里我们设置为一个虚拟目录，因为所有内容都将由函数提供。
   publish = "build_output" # 或者你可以留空，但有时指定一下更稳定。
 
-
-[functions]
-  # 指定你的函数使用的 Python 版本。
-  # 推荐使用较新的稳定版本。
-  python_version = "3.9" # 或者 "3.10", "3.11" 等，确保你的代码兼容。
-
 # 重定向规则：将所有请求都发送到我们的 'main' Netlify Function
 # 这是让整个 FastAPI 应用作为一个函数运行的关键。
 [[redirects]]
