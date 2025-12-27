@@ -1,12 +1,34 @@
+# netlify.toml
+
 [build]
-  command = "pip install -r requirements.txt"
-  publish = "."
+  # 这是 Netlify 在构建时要执行的命令。
+  # 我们需要手动将所有文件（main.py, templates, static, requirements.txt）
+  # 复制到 Netlify Functions 期望的目录结构中。
+  # 假设你的主函数是 'main'，因此它会在 netlify/functions/main/ 中查找。
+  command = """
+  mkdir -p netlify/functions/main && \
+  cp main.py netlify/functions/main/main.py && \
+  cp -r templates netlify/functions/main/templates && \
+  cp -r static netlify/functions/main/static && \
+  cp requirements.txt netlify/functions/main/requirements.txt
+  """
+  # Netlify 期望你的函数文件放在这个目录下。
+  functions = "netlify/functions"
+  # publish 目录通常用于静态网站的输出。
+  # 因为我们的整个应用都是一个函数，所以这里可以是一个空目录，
+  # 或者一个你放其他静态资源（如果需要）的目录。
+  # 这里我们设置为一个虚拟目录，因为所有内容都将由函数提供。
+  publish = "build_output" # 或者你可以留空，但有时指定一下更稳定。
+
 
 [functions]
-  directory = "."
+  # 指定你的函数使用的 Python 版本。
+  # 推荐使用较新的稳定版本。
+  python_version = "3.9" # 或者 "3.10", "3.11" 等，确保你的代码兼容。
 
+# 重定向规则：将所有请求都发送到我们的 'main' Netlify Function
+# 这是让整个 FastAPI 应用作为一个函数运行的关键。
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/main"
+  to = "/.netlify/functions/main" # 'main' 是你的函数名，它会查找 netlify/functions/main/main.py
   status = 200
-
