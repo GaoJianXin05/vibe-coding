@@ -2,5 +2,6 @@ fastapi
 uvicorn
 jinja2
 mangum
-python-multipart 
-pydantic          
+python-multipart
+pydantic
+
